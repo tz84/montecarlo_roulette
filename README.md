@@ -1,1 +1,5 @@
-# montecarlo_roulette
+# Montecarlo Roulette
+
+## Download + Setup
+
+## Documentation

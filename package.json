@@ -1,0 +1,23 @@
+{
+  "name": "montecarlo",
+  "version": "1.0.0",
+  "description": "montecarloSimulation",
+  "main": "main.ts",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tz84/montecarlo_roulette.git"
+  },
+  "author": "tz84",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tz84/montecarlo_roulette/issues"
+  },
+  "homepage": "https://github.com/tz84/montecarlo_roulette#readme",
+  "devDependencies": {
+    "electron": "^26.6.1"
+  }
+}

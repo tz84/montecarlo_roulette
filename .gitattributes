@@ -1,0 +1,2 @@
+node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron filter=lfs diff=lfs merge=lfs -text
+*.psd filter=lfs diff=lfs merge=lfs -text
