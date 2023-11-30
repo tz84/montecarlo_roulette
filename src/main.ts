@@ -26,7 +26,6 @@ app.on('window-all-closed', () => {
     })
   })
 
-
 class RouletteGame {
 
     // round outcome where true = win and false = lose 
