@@ -1,36 +1,9 @@
-//electron js window and startup logic 
-
-const { app, BrowserWindow } = require('electron')
-
-const createWindow = () => {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 800
-  })
-
-  win.loadFile('index.html')
-}
-app.whenReady().then(() => {
-  createWindow()
-})
-
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
-  })
-
-  app.whenReady().then(() => {
-    createWindow()
-  
-    app.on('activate', () => {
-      if (BrowserWindow.getAllWindows().length === 0) createWindow()
-    })
-  })
-
 class RouletteGame {
 
+    bankroll: number = 1000;
     // round outcome where true = win and false = lose 
-    outcome: boolean 
-    gameResult: number
+    outcome: boolean = false;
+    gameResult: number = 0;
 
     // min = 1 and max = 38 (chance of winning on color = 18/38)
     playRound(min: number = 1, max: number = 1) {
@@ -47,23 +20,30 @@ class RouletteGame {
     }
 }
 
-
 abstract class BettingStrategy {
 
         // make initial bet a percentage of the bankroll (2-3%)
         currentBet: number  
         initialBet: number 
 
+        abstract calculateNextBet(outcome: boolean): number 
+
         placeBet() {
-            //places bet in similation based on strategy logic 
+
         }
 }
 
-
 class MartingaleStrategy extends BettingStrategy {
-    // implement classes and atributtes from class system 
-}
 
+  calculateNextBet(outcome:boolean):number {
+    if (outcome === false) {
+      this.currentBet = this.currentBet * 2;
+  } else {
+      this.currentBet = this.initialBet;
+  }
+  return this.currentBet;
+  }
+}
 
 class MonteCarloSimulator {
 
