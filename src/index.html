@@ -6,14 +6,25 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
     <title>Roulette Simulator</title>
   </head>
   <body>
-    <h1></h1>
-    <p>👋</p>
+
+    <!-- Heading and index page buttons -->
+    <h1>Roulette Monte Carlo</h1>
+    <button type="button">Start Simulation</button>
+    <button type="button">Select Strategy</button>
+
+    <!-- Dropdown meny for strategy -->
+    <div class="dropdown">
+      <button class="dropbtn">+</button>
+      <div class="dropdown-content">
+        <a href="#">Martingale</a>
+        <a href="#">Paroli</a>
+        <a href="#">Oscars Grind</a>
+      </div>
+    </div>
+
+    <p></p>
   </body>
 </html>
