@@ -32,7 +32,6 @@ abstract class BettingStrategy {
 
         }
 }
-
 class MartingaleStrategy extends BettingStrategy {
 
   calculateNextBet(outcome:boolean):number {
@@ -47,10 +46,10 @@ class MartingaleStrategy extends BettingStrategy {
 
 class MonteCarloSimulator {
 
-    bankRoll: number = 10000
     maxRounds: number = 100 
     numSimulations: number = 1000
 
+    //stores round results 
     simulationResults: {[key: number]: number} = {}
 
     // stores final mean an avergae dsitributoin values 
