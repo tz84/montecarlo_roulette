@@ -23,8 +23,8 @@ class RouletteGame {
 abstract class BettingStrategy {
 
         // make initial bet a percentage of the bankroll (2-3%)
-        currentBet: number  
-        initialBet: number 
+        currentBet: number = 0;  // Initialize with a default value
+        initialBet: number = 0;
 
         abstract calculateNextBet(outcome: boolean): number 
 
@@ -59,11 +59,15 @@ class MonteCarloSimulator {
     // must store final balances and update simulation results 
     }
 
+    
     getSimulationResults() {
+        if (Object.values(this.simulationResults).length === 0) {
+            throw new Error("Simulation results not available");
+        }
         // returns array of final balances 
     }
 
-    calculateAndDisplayStatistics() {
+    calculateAndDisplayStatistics(simulationResults: number[]) {
         //needs values of all final balances in the parameters 
 
         const finalBalances = Object.values(this.simulationResults)
