@@ -46,6 +46,51 @@ class DalembertStrategy extends BettingStrategy {
     }
 }
 
+class FibonacciSystemStrategy extends BettingStrategy {
+    private fibonacciSequence: number[] = [1, 1];
+    private currentIndex: number = 0;
+
+    calculateNextBet(outcome: boolean): number {
+        if (outcome === false) {
+            this.currentBet = this.getNextFibonacciNumber();
+        } else {
+            this.currentIndex = Math.max(this.currentIndex - 2, 0);
+            this.currentBet = this.fibonacciSequence[this.currentIndex];
+        }
+        return this.currentBet;
+    }
+
+    private getNextFibonacciNumber(): number {
+        const nextFibonacciNumber = this.fibonacciSequence[this.currentIndex] + this.fibonacciSequence[this.currentIndex + 1];
+        this.fibonacciSequence.push(nextFibonacciNumber);
+        this.currentIndex++;
+        return nextFibonacciNumber;
+    }
+}
+
+class ParoliSystemStrategy extends BettingStrategy {
+    calculateNextBet(outcome: boolean): number {
+        if (outcome === false) {
+            this.currentBet = 1;
+        } else {
+            this.currentBet = 1;
+        }
+        return this.currentBet;
+    }
+}
+
+class OscardsGrindStrategy extends BettingStrategy {
+    calculateNextBet(outcome: boolean): number {
+        if (outcome === false) {
+            this.currentBet = 1;
+        } else {
+            this.currentBet = 1;
+        }
+        return this.currentBet;
+    }
+}
+
+
 
 class MonteCarloSimulator {
     maxRounds: number = 100;
