@@ -21,7 +21,6 @@ abstract class BettingStrategy {
     abstract calculateNextBet(outcome: boolean): number;
 
     placeBet() {
-        // Your betting logic goes here if needed
     }
 }
 
@@ -36,6 +35,18 @@ class MartingaleStrategy extends BettingStrategy {
     }
 }
 
+class DalembertStrategy extends BettingStrategy {
+    calculateNextBet(outcome: boolean): number {
+        if (outcome === false) {
+            this.currentBet = this.currentBet + this.initialBet/4;
+        } else {
+            this.currentBet = this.currentBet - this.initialBet/4;
+        }
+        return this.currentBet;
+    }
+}
+
+
 class MonteCarloSimulator {
     maxRounds: number = 100;
     numSimulations: number = 1000;
@@ -45,7 +56,6 @@ class MonteCarloSimulator {
     runSimulations(strategy: BettingStrategy, game: RouletteGame) {
         for (let i = 0; i < this.numSimulations; i++) {
             while (game.bankroll > 0 && game.bankroll < 2000) {
-                // Assuming Martingale strategy for simplicity
                 strategy.initialBet = 0.02 * game.bankroll; // 2% of bankroll
                 strategy.currentBet = strategy.initialBet;
 
@@ -81,6 +91,10 @@ class MonteCarloSimulator {
 
         console.log("Mean:", mean);
         console.log("Standard Deviation:", standardDeviation);
+    }
+
+    searchResults(criteria: (result: number) => boolean): number[] {
+        return Object.values(this.simulationResults).filter(criteria);
     }
 }
 
