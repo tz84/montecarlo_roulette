@@ -15,6 +15,7 @@ class RouletteGame {
 }
 
 abstract class BettingStrategy {
+    // edit current and intial bets
     currentBet: number = 0;
     initialBet: number = 0;
 
@@ -39,6 +40,7 @@ class DalembertStrategy extends BettingStrategy {
     calculateNextBet(outcome: boolean): number {
         if (outcome === false) {
             this.currentBet = this.currentBet + this.initialBet/4;
+        // change this to account for case when it is the first round of a simulation
         } else {
             this.currentBet = this.currentBet - this.initialBet/4;
         }
@@ -47,12 +49,14 @@ class DalembertStrategy extends BettingStrategy {
 }
 
 class FibonacciSystemStrategy extends BettingStrategy {
-    private fibonacciSequence: number[] = [1, 1];
+    private fibonacciSequence: number[] = [10, 10];
     private currentIndex: number = 0;
 
     calculateNextBet(outcome: boolean): number {
         if (outcome === false) {
             this.currentBet = this.getNextFibonacciNumber();
+
+        // change this to account for case when it is the first round of a simulation
         } else {
             this.currentIndex = Math.max(this.currentIndex - 2, 0);
             this.currentBet = this.fibonacciSequence[this.currentIndex];
@@ -70,21 +74,27 @@ class FibonacciSystemStrategy extends BettingStrategy {
 
 class ParoliSystemStrategy extends BettingStrategy {
     calculateNextBet(outcome: boolean): number {
+        // add logic to where if user wins 4 or 5 wins in a row bet automaticlally resets to simulate real player 
         if (outcome === false) {
-            this.currentBet = 1;
+            this.currentBet = this.initialBet;
+        // change this to account for case when it is the first round of a simulation
         } else {
-            this.currentBet = 1;
+            this.currentBet = this.currentBet * 2;
         }
         return this.currentBet;
     }
 }
 
 class OscardsGrindStrategy extends BettingStrategy {
+
+    private oscarunit: number = this.initialBet/10
+
     calculateNextBet(outcome: boolean): number {
         if (outcome === false) {
-            this.currentBet = 1;
+            this.currentBet = this.currentBet;
+        // change this to account for case when it is the first round of a simulation
         } else {
-            this.currentBet = 1;
+            this.currentBet = this.currentBet + this.oscarunit;
         }
         return this.currentBet;
     }
