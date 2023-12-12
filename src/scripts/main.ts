@@ -21,7 +21,16 @@ abstract class BettingStrategy {
 
     abstract calculateNextBet(outcome: boolean): number;
 
-    placeBet() {
+    placeBet(game: RouletteGame) {
+        if (this.currentBet > game.bankroll) {
+            //make sure that bet does not exceed bankroll
+            this.currentBet = game.bankroll;
+        }
+
+        if (this.currentBet > 0) {
+            // place the calculated bet 
+            game.bankroll += this.currentBet * (game.outcome ? 1 : -1); // win adds and loss subtracts
+        }
     }
 }
 
@@ -116,7 +125,7 @@ class MonteCarloSimulator {
 
                 game.playRound();
                 strategy.calculateNextBet(game.outcome);
-                game.bankroll += game.outcome ? strategy.currentBet : -strategy.currentBet;
+                strategy.placeBet(game);  // Place the bet in the game
             }
             this.simulationResults[i] = game.bankroll;
             game.bankroll = 1000; // Reset bankroll for the next simulation
@@ -155,9 +164,33 @@ class MonteCarloSimulator {
 
 // Instantiate classes and run the program
 const game = new RouletteGame();
-const martingaleStrategy = new MartingaleStrategy();
 const simulator = new MonteCarloSimulator();
+let selectedStrategy: BettingStrategy;
 
-simulator.runSimulations(martingaleStrategy, game);
-const simulationResults = simulator.getSimulationResults();
-simulator.calculateAndDisplayStatistics(simulationResults);
+// Reference to UI elements
+const startButton = document.getElementById('start-simulation') as HTMLButtonElement;
+const strategySelect = document.getElementById('select-strategy') as HTMLSelectElement;
+
+// Function to instantiate strategy based on selection
+function instantiateStrategy(strategyName: string): BettingStrategy {
+    switch(strategyName) {
+        case 'MartingaleStrategy': return new MartingaleStrategy();
+        case 'DalembertStrategy': return new DalembertStrategy();
+        case 'FibonacciSystemStrategy': return new FibonacciSystemStrategy();
+        case 'ParoliSystemStrategy': return new ParoliSystemStrategy();
+        case 'OscardsGrindStrategy': return new OscardsGrindStrategy();
+        default: throw new Error('Invalid strategy selected');
+    }
+}
+
+// Event listeners
+startButton.addEventListener('click', () => {
+    selectedStrategy = instantiateStrategy(strategySelect.value);
+    simulator.runSimulations(selectedStrategy, game);
+    const results = simulator.getSimulationResults();
+    simulator.calculateAndDisplayStatistics(results);
+});
+
+strategySelect.addEventListener('change', () => {
+    selectedStrategy = instantiateStrategy(strategySelect.value);
+});
