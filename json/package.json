@@ -2,9 +2,9 @@
   "name": "montecarlo",
   "version": "1.0.0",
   "description": "montecarloSimulation",
-  "main": "main.ts",
+  "main": "src/scripts/main.ts",
   "scripts": {
-    "start": "electron .",
+    "start": "tsc && electron ./dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/tz84/montecarlo_roulette#readme",
   "devDependencies": {
-    "electron": "^26.6.1"
+    "electron": "^26.6.2",
+    "typescript": "^5.3.3"
   }
 }
