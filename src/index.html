@@ -1,30 +1,23 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <title>Roulette Simulator</title>
-  </head>
-  <body>
-
-    <!-- Heading and index page buttons -->
-    <h1>Roulette Monte Carlo</h1>
-    <button type="button">Start Simulation</button>
-    <button type="button">Select Strategy</button>
-
-    <!-- Dropdown meny for strategy -->
-    <div class="dropdown">
-      <button class="dropbtn">+</button>
-      <div class="dropdown-content">
-        <a href="#">Martingale</a>
-        <a href="#">Paroli</a>
-        <a href="#">Oscars Grind</a>
-      </div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Roulette Monte Carlo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Roulette Monte Carlo</h1>
+        <button id="start-simulation">Start Simulation</button>
+        <select id="select-strategy">
+            <option value="MartingaleStrategy">Martingale Strategy</option>
+            <option value="DalembertStrategy">D'Alembert Strategy</option>
+            <option value="FibonacciSystemStrategy">Fibonacci System Strategy</option>
+            <option value="ParoliSystemStrategy">Paroli System Strategy</option>
+            <option value="OscardsGrindStrategy">Oscar's Grind Strategy</option>
+        </select>
     </div>
 
-    <p></p>
-  </body>
+    <script src="main.ts"></script>
+</body>
 </html>
