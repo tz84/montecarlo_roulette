@@ -29,3 +29,31 @@ select {
     padding: 10px;
     font-size: 16px;
 }
+
+
+.hidden {
+    display: none;
+}
+
+#loading-screen {
+    text-align: center;
+    padding: 20px;
+}
+
+#loading-bar {
+    width: 0;
+    height: 20px;
+    background-color: #aaa;
+    transition: width 2s ease-in-out;
+}
+
+/* Animation keyframes for loading bar */
+@keyframes loading {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+/* Apply  animation to  loading bar */
+#loading-bar.animated {
+    animation: loading 5s infinite;
+}

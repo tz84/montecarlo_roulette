@@ -194,3 +194,34 @@ startButton.addEventListener('click', () => {
 strategySelect.addEventListener('change', () => {
     selectedStrategy = instantiateStrategy(strategySelect.value);
 });
+
+// Function to show  loading screen
+function showLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen') as HTMLElement;
+    const loadingBar = document.getElementById('loading-bar') as HTMLElement;
+    
+    loadingScreen.classList.remove('hidden');
+    loadingBar.classList.add('animated');
+}
+
+// Function to hide loading screen
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen') as HTMLElement;
+    const loadingBar = document.getElementById('loading-bar') as HTMLElement;
+    
+    loadingScreen.classList.add('hidden');
+    loadingBar.classList.remove('animated');
+}
+
+startButton.addEventListener('click', () => {
+    selectedStrategy = instantiateStrategy(strategySelect.value);
+    showLoadingScreen();
+
+    setTimeout(() => {
+        simulator.runSimulations(selectedStrategy, game);
+        const results = simulator.getSimulationResults();
+        simulator.calculateAndDisplayStatistics(results);
+        hideLoadingScreen();
+    }, 0);
+});
+
